@@ -25,10 +25,11 @@ RUN echo 'deb http://httpredir.debian.org/debian testing main' >> /etc/apt/sourc
 	apt-get update && apt-get install -y \
 	ca-certificates \
 	curl \
+	gnupg \
 	hicolor-icon-theme \
 	libgl1-mesa-dri \
 	libgl1-mesa-glx \
-        libpulse0 \
+	libpulse0 \
 	libv4l-0 \
 	-t testing \
 	fonts-symbola \

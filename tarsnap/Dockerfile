@@ -3,9 +3,10 @@ MAINTAINER Jessica Frazelle <jess@docker.com>
 
 RUN apt-get update && apt-get install -y \
 	ca-certificates \
+	gnupg \
 	&& rm -rf /var/lib/apt/lists/*
 
-ENV TARSNAP_VERSION 1.0.36.1
+ENV TARSNAP_VERSION 1.0.37
 
 RUN buildDeps=' \
 		curl \
