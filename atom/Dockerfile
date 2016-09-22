@@ -1,6 +1,5 @@
-# VERSION:		  0.1
 # DESCRIPTION:	  Create the atom editor in a container
-# AUTHOR:		  Jessica Frazelle <jess@docker.com>
+# AUTHOR:		  Jessie Frazelle <jess@linux.com>
 # COMMENTS:
 #	This file describes how to build the atom editor
 #	in a container with all dependencies installed.
@@ -20,8 +19,8 @@
 #
 
 # Base docker image
-FROM debian:jessie
-MAINTAINER Jessica Frazelle <jess@docker.com>
+FROM debian:stretch
+MAINTAINER Jessie Frazelle <jess@linux.com>
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -30,6 +29,7 @@ RUN apt-get update && apt-get install -y \
 	gconf-service \
 	gvfs-bin \
 	libasound2 \
+	libcap2 \
 	libgconf-2-4 \
 	libgnome-keyring-dev \
 	libgtk2.0-0 \
@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
-ENV ATOM_VERSION 1.10.0
+ENV ATOM_VERSION 1.10.2
 
 # download the source
 RUN buildDeps=' \

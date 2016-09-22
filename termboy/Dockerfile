@@ -1,6 +1,5 @@
-# VERSION:		  0.1
-# DESCRIPTION:	  Termboy in a container 
-# AUTHOR:		  Jessica Frazelle <jess@docker.com>
+# DESCRIPTION:	  Termboy in a container
+# AUTHOR:		  Jessie Frazelle <jess@linux.com>
 # COMMENTS:
 #	This file describes how to build termboy
 #	in a container with all dependencies installed.
@@ -18,8 +17,8 @@
 #
 
 # Base docker image
-FROM debian:jessie
-MAINTAINER Jessica Frazelle <jess@docker.com>
+FROM debian:stretch
+MAINTAINER Jessie Frazelle <jess@linux.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 

@@ -1,9 +1,10 @@
-FROM debian:jessie
-MAINTAINER Jessica Frazelle <jess@docker.com>
+FROM debian:stretch
+MAINTAINER Jessie Frazelle <jess@linux.com>
 
 RUN apt-get update && apt-get install -y \
 	ca-certificates \
 	curl \
+	gnupg \
 	--no-install-recommends
 
 RUN export GNUPGHOME="$(mktemp -d)" \

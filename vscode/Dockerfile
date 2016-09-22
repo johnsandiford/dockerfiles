@@ -9,8 +9,8 @@
 #    --name vscode \
 #    jess/vscode
 
-FROM debian:jessie
-MAINTAINER Jessica Frazelle <jess@docker.com>
+FROM debian:stretch
+MAINTAINER Jessie Frazelle <jess@linux.com>
 
 RUN apt-get update && apt-get install -y \
 	libasound2 \
@@ -49,20 +49,21 @@ ENV HOME /home/user
 RUN useradd --create-home --home-dir $HOME user \
 	&& chown -R user:user $HOME
 
+ENV CODE_VERSION 1.5.2
 # download the source
 RUN buildDeps=' \
 		ca-certificates \
 		curl \
-		unzip \
+		gnupg \
 	' \
 	&& set -x \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
-	&& curl -sL https://deb.nodesource.com/setup | bash - \
+	&& curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 	&& apt-get update && apt-get install -y nodejs --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& curl -sSL https://az764295.vo.msecnd.net/stable/fe7f407b95b7f78405846188259504b34ef72761/VSCode-linux-x64-stable.zip -o /tmp/vs.zip \
-	&& unzip /tmp/vs.zip -d /usr/src/ \
-	&& rm -rf /tmp/vs.zip \
+	&& curl -sSL https://az764295.vo.msecnd.net/stable/66f37fd2a99eb9d628dd374d81d78835b410c39b/code_${CODE_VERSION}-1473686317_amd64.deb -o /tmp/vs.deb \
+	&& dpkg -i /tmp/vs.deb \
+	&& rm -rf /tmp/vs.deb \
 	&& apt-get purge -y --auto-remove $buildDeps
 
 COPY start.sh /usr/local/bin/start.sh

@@ -6,8 +6,8 @@
 #	--name ykpersonalize \
 #	jess/ykpersonalize
 #
-FROM ubuntu
-MAINTAINER Jessica Frazelle <jess@docker.com>
+FROM ubuntu:16.04
+MAINTAINER Jessie Frazelle <jess@linux.com>
 
 RUN apt-get update && apt-get install -y \
 	software-properties-common \

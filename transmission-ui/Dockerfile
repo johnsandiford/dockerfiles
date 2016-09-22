@@ -1,9 +1,8 @@
-# VERSION:		  0.1
 # DESCRIPTION:	  Create transmission container with its dependencies
-# AUTHOR:		  Jessica Frazelle <jess@docker.com>
+# AUTHOR:		  Jessie Frazelle <jess@linux.com>
 # COMMENTS:
 #	This file describes how to build a transmission container with all
-#	dependencies installed. It uses native X11 unix socket. 
+#	dependencies installed. It uses native X11 unix socket.
 #	Tested on Debian Jessie
 # USAGE:
 #	# Download transmission-ui Dockerfile
@@ -18,8 +17,8 @@
 #
 
 # Base docker image
-FROM debian:jessie
-MAINTAINER Jessica Frazelle <jess@docker.com>
+FROM debian:stretch
+MAINTAINER Jessie Frazelle <jess@linux.com>
 
 # Install transmission and its dependencies
 RUN apt-get update && apt-get install -y \

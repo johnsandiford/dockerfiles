@@ -1,5 +1,5 @@
-FROM alpine
-MAINTAINER Jessica Frazelle <jess@docker.com>
+FROM alpine:latest
+MAINTAINER Jessie Frazelle <jess@linux.com>
 
 RUN apk add --no-cache \
 	ca-certificates \

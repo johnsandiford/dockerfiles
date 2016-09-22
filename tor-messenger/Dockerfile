@@ -5,17 +5,18 @@
 #	-e DISPLAY=unix$DISPLAY \
 #	jess/tor-messenger
 #
-FROM debian:jessie
+FROM debian:stretch
 MAINTAINER Christian Koep <christian.koep@fom-net.de>
 
 ENV HOME /home/user
 ENV LANG C.UTF-8
-ENV TOR_VERSION 0.1.0b6
-ENV TOR_FINGERPRINT 0x6887935AB297B391
+ENV TOR_VERSION 0.2.0b2
+ENV TOR_FINGERPRINT 0xB01C8B006DA77FAA
 
 RUN apt-get update && apt-get -y install \
 	ca-certificates \
 	curl \
+	gnupg \
 	gxmessage \
 	libasound2 \
 	libdbus-glib-1-2 \
@@ -34,7 +35,7 @@ RUN cd /tmp && \
 	curl -sSOL https://dist.torproject.org/tormessenger/${TOR_VERSION}/sha256sums.txt.asc && \
 	mkdir ~/.gnupg && \
 	gpg --keyserver x-hkp://pgp.mit.edu --recv-keys ${TOR_FINGERPRINT} || \
-	gpg --fingerprint ${TOR_FINGERPRINT} | grep "Key fingerprint = 3A0B 3D84 3708 9613 6B84	5E82 6887 935A B297 B391" && \
+	gpg --fingerprint --keyid-format LONG ${TOR_FINGERPRINT} | grep "Key fingerprint = 3A0B 3D84 3708 9613 6B84	5E82 6887 935A B297 B391" && \
 	gpg --verify sha256sums.txt.asc && \
 	grep $(sha256sum tor-messenger-linux64-${TOR_VERSION}_en-US.tar.xz) sha256sums.txt && \
 	tar xfv tor-messenger-linux64-${TOR_VERSION}_en-US.tar.xz -C /usr/local/bin && \
@@ -47,4 +48,4 @@ WORKDIR $HOME
 
 USER user
 
-CMD ["/usr/local/bin/tor-messenger/Messenger/start-tor-messenger", "--verbose"]
+CMD ["/usr/local/bin/tor-messenger/Browser/start-tor-messenger", "--verbose"]

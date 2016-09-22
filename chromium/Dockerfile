@@ -1,6 +1,5 @@
-# VERSION:		  0.1
 # DESCRIPTION:	  Create chromium container with its dependencies
-# AUTHOR:		  Jessica Frazelle <jess@docker.com>
+# AUTHOR:		  Jessie Frazelle <jess@linux.com>
 # COMMENTS:
 #	This file describes how to build a Chromium container with all
 #	dependencies installed. It uses native X11 unix socket.
@@ -21,8 +20,8 @@
 #		-e DISPLAY=unix$DISPLAY chromium
 
 # Base docker image
-FROM debian:jessie
-MAINTAINER Jessica Frazelle <jess@docker.com>
+FROM debian:stretch
+MAINTAINER Jessie Frazelle <jess@linux.com>
 
 ADD https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb /src/google-talkplugin_current_amd64.deb
 
