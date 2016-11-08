@@ -20,7 +20,7 @@
 # POSSIBLE ISSUES:
 #	# 'Gtk: cannot open display: :0'
 #	Try to set 'DISPLAY=your_host_ip:0' or run 'xhost +' on your host.
-#	(see: http://stackoverflow.com/questions/28392949/running-chromium-inside-docker-gtk-cannot-open-display-0)
+#	(see: https://stackoverflow.com/questions/28392949/running-chromium-inside-docker-gtk-cannot-open-display-0)
 #
 
 FROM debian:stretch
@@ -43,7 +43,7 @@ RUN apt-get update && apt-get -y install \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
-ENV SUBLIME_VERSION build_3114
+ENV SUBLIME_VERSION build_3126
 
 RUN curl -sSL "https://download.sublimetext.com/sublime_text_3_${SUBLIME_VERSION}_x64.tar.bz2" -o /tmp/sublime.tar.bz2 \
 	&& mkdir -p /usr/src/sublime_text \
