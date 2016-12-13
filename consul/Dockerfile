@@ -9,7 +9,7 @@ RUN	apk --no-cache add \
 	ca-certificates \
 	curl
 
-ENV CONSUL_VERSION v0.7.0
+ENV CONSUL_VERSION v0.7.1
 
 RUN buildDeps=' \
 		bash \
@@ -26,7 +26,7 @@ RUN buildDeps=' \
 		zip \
 	' \
 	set -x \
-	&& apk --no-cache add $buildDeps \
+	&& apk --no-cache add --repository https://dl-3.alpinelinux.org/alpine/edge/community $buildDeps \
 	&& go get github.com/Soulou/curl-unix-socket \
 	&& mv /go/bin/curl-unix-socket /usr/bin/ \
 	&& mkdir -p /go/src/github.com/hashicorp /etc/consul.d \
