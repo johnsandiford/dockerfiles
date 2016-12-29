@@ -9,7 +9,7 @@ RUN	apk --no-cache add \
 	ca-certificates \
 	curl
 
-ENV CONSUL_VERSION v0.7.1
+ENV CONSUL_VERSION v0.7.2
 
 RUN buildDeps=' \
 		bash \
@@ -30,7 +30,7 @@ RUN buildDeps=' \
 	&& go get github.com/Soulou/curl-unix-socket \
 	&& mv /go/bin/curl-unix-socket /usr/bin/ \
 	&& mkdir -p /go/src/github.com/hashicorp /etc/consul.d \
-	&& git clone --branch ${CONSUL_VERSION} https://github.com/hashicorp/consul /go/src/github.com/hashicorp/consul \
+	&& git clone --depth 1 --branch ${CONSUL_VERSION} https://github.com/hashicorp/consul /go/src/github.com/hashicorp/consul \
 	&& cd /go/src/github.com/hashicorp/consul \
 	&& XC_ARCH="amd64" XC_OS="linux" make all \
 	&& mv bin/consul /usr/bin/ \
