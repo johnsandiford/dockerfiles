@@ -6,7 +6,7 @@
 #	tor-browser
 #
 FROM debian:stretch
-MAINTAINER Christian Koep <christian.koep@fom-net.de>
+LABEL maintainer "Christian Koep <christian.koep@fom-net.de>"
 
 RUN apt-get update && apt-get install -y \
 	ca-certificates \
@@ -28,7 +28,7 @@ RUN useradd --create-home --home-dir $HOME user \
 
 ENV LANG C.UTF-8
 
-ENV TOR_VERSION 7.0a1-hardened
+ENV TOR_VERSION 7.0a2-hardened
 ENV TOR_FINGERPRINT 0x4E2C6E8793298290
 
 # download tor and check signature

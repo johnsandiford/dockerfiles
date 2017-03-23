@@ -1,12 +1,11 @@
 FROM alpine:latest
-MAINTAINER Jessie Frazelle <jess@linux.com>
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 ENV PATH /go/bin:/usr/local/go/bin:$PATH
 ENV GOPATH /go
 
 RUN	apk --no-cache add \
-	ca-certificates \
-	curl
+	ca-certificates
 
 ENV VAULT_VERSION v0.6.5
 

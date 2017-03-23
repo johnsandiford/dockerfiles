@@ -1,7 +1,8 @@
 FROM alpine:latest
-MAINTAINER Jessie Frazelle <jess@linux.com>
+LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN apk --no-cache add \
+	bash \
 	python \
 	py-cffi \
 	py-configargparse \
@@ -26,7 +27,7 @@ RUN apk --no-cache add \
 
 RUN pip install acme
 
-ENV CERTBOT_VERSION 0.11.1
+ENV CERTBOT_VERSION 0.12.0
 
 RUN buildDeps=' \
 		git \
