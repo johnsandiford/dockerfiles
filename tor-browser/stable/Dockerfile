@@ -28,7 +28,7 @@ RUN useradd --create-home --home-dir $HOME user \
 
 ENV LANG C.UTF-8
 
-ENV TOR_VERSION 6.5.1
+ENV TOR_VERSION 6.5.2
 ENV TOR_FINGERPRINT 0x4E2C6E8793298290
 
 # download tor and check signature
@@ -51,4 +51,4 @@ WORKDIR $HOME
 USER user
 
 ENTRYPOINT ["/bin/bash"]
-CMD [ "/usr/local/bin/Browser/start-tor-browser" ]
+CMD [ "/usr/local/bin/Browser/start-tor-browser", "--log", "/dev/stdout" ]

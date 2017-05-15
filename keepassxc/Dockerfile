@@ -10,7 +10,7 @@
 FROM alpine:latest
 LABEL maintainer "Christian Koep <christiankoep@gmail.com>"
 
-ENV KEEPASSXC_VERSION 2.1.3
+ENV KEEPASSXC_VERSION 2.1.4
 
 RUN buildDeps=' \
                 automake \
@@ -26,7 +26,7 @@ RUN buildDeps=' \
                 qt5-qttools-dev \
 	' \
 	set -x \
-	&& apk --no-cache add --repository https://dl-3.alpinelinux.org/alpine/edge/community $buildDeps \
+	&& apk --no-cache add $buildDeps \
 	&& git clone --depth 1 --branch ${KEEPASSXC_VERSION} https://github.com/keepassxreboot/keepassxc.git /usr/src/keepassxc \
 	&& cd /usr/src/keepassxc \
 	&& mkdir build \
@@ -38,7 +38,7 @@ RUN buildDeps=' \
 	&& rm -rf /usr/src/keepassxc \
 	&& echo "Build complete."
 
-RUN	apk --no-cache add --repository https://dl-3.alpinelinux.org/alpine/edge/community \
+RUN	apk --no-cache add \
 		libmicrohttpd \
 		libgcrypt \
 		mesa-dri-intel \

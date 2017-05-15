@@ -1,6 +1,7 @@
 # This script gets the latest GitHub releases for the specified projects.
 #!/bin/bash
 set -e
+set -o pipefail
 
 if [[ -z "$GITHUB_TOKEN" ]]; then
 	echo "Set the GITHUB_TOKEN env variable."
@@ -43,7 +44,7 @@ get_latest() {
 
 	local current=$(cat "${dir}/Dockerfile" | grep -m 1 VERSION | awk '{print $(NF)}')
 
-	if [[ "$tag" =~ "$current" ]] || [[ "$name" =~ "$current" ]]; then
+	if [[ "$tag" =~ "$current" ]] || [[ "$name" =~ "$current" ]] || [[ "$current" =~ "$tag" ]]; then
 		echo -e "\e[36m${dir}:\e[39m current ${current} | ${tag} | ${name}"
 	else
 		echo -e "\e[31m${dir}:\e[39m current ${current} | ${tag} | ${name} | https://github.com/${repo}/releases"

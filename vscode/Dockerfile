@@ -13,6 +13,7 @@ FROM debian:stretch
 LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN apt-get update && apt-get install -y \
+	gnupg \
 	libasound2 \
 	libatk1.0-0 \
 	libcairo2 \
@@ -44,6 +45,7 @@ RUN apt-get update && apt-get install -y \
 	libxss1 \
 	libxtst6 \
 	liblzma5 \
+	libxkbfile1 \
 	--no-install-recommends
 
 ENV HOME /home/user
@@ -51,14 +53,13 @@ RUN useradd --create-home --home-dir $HOME user \
 	&& chown -R user:user $HOME
 
 # https://code.visualstudio.com/Download
-ENV CODE_VERSION 1.10.2-1488981323
-ENV CODE_COMMIT 8076a19fdcab7e1fc1707952d652f0bb6c6db331
+ENV CODE_VERSION 1.12.1-1493934083
+ENV CODE_COMMIT f6868fce3eeb16663840eb82123369dec6077a9b
 
 # download the source
 RUN buildDeps=' \
 		ca-certificates \
 		curl \
-		gnupg \
 	' \
 	&& set -x \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
@@ -66,13 +67,12 @@ RUN buildDeps=' \
 	&& apt-get update && apt-get install -y nodejs --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& curl -sSL "https://az764295.vo.msecnd.net/stable/${CODE_COMMIT}/code_${CODE_VERSION}_amd64.deb" -o /tmp/vs.deb \
+	&& apt-get purge -y --auto-remove $buildDeps \
 	&& dpkg -i /tmp/vs.deb \
-	&& rm -rf /tmp/vs.deb \
-	&& apt-get purge -y --auto-remove $buildDeps
+	&& rm -rf /tmp/vs.deb
 
 COPY start.sh /usr/local/bin/start.sh
-COPY local.conf /etc/fonts/local.conf
 
 WORKDIR $HOME
 
-ENTRYPOINT [ "/usr/local/bin/start.sh" ]
+CMD [ "start.sh" ]
