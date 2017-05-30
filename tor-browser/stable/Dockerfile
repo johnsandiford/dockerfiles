@@ -2,6 +2,8 @@
 #
 # docker run -v /tmp/.X11-unix:/tmp/.X11-unix \
 #	-v /dev/snd:/dev/snd \
+#	-v /dev/shm:/dev/shm \
+#	-v /etc/machine-id:/etc/machine-id:ro \
 #	-e DISPLAY=unix$DISPLAY \
 #	jess/tor-browser
 #
@@ -17,6 +19,7 @@ RUN apt-get update && apt-get install -y \
 	libdbus-glib-1-2 \
 	libgtk2.0-0 \
 	libxrender1 \
+	libx11-xcb1 \
 	libxt6 \
 	xz-utils \
 	--no-install-recommends \
@@ -28,7 +31,7 @@ RUN useradd --create-home --home-dir $HOME user \
 
 ENV LANG C.UTF-8
 
-ENV TOR_VERSION 6.5.2
+ENV TOR_VERSION 7.0a4
 ENV TOR_FINGERPRINT 0x4E2C6E8793298290
 
 # download tor and check signature
