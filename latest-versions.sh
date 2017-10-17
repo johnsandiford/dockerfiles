@@ -17,13 +17,13 @@ get_latest() {
 	local repo=$1
 
 	local resp=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/repos/${repo}/releases/latest")
-	local tag=$(echo $resp | jq --raw-output .tag_name)
-	local name=$(echo $resp | jq --raw-output .name)
+	local tag=$(echo $resp | jq -e --raw-output .tag_name)
+	local name=$(echo $resp | jq -e --raw-output .name)
 
 	if [[ "$tag" == "null" ]]; then
 		# get the latest tag
 		local resp=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/repos/${repo}/tags")
-		local tag=$(echo $resp | jq --raw-output .[0].name)
+		local tag=$(echo $resp | jq -e --raw-output .[0].name)
 	fi
 
 	if [[ "$name" == "null" ]] || [[ "$name" == "" ]]; then
@@ -60,9 +60,7 @@ camlistore/camlistore
 certbot/certbot
 hashicorp/consul
 CouchPotato/CouchPotatoServer
-pooler/cpuminer
 curl/curl
-opendnssec/SoftHSMv2
 google/guetzli
 irssi/irssi
 keepassxreboot/keepassxc
@@ -76,7 +74,6 @@ tarsnap/tarsnap
 fcambus/telize
 mitchellh/vagrant
 hashicorp/vault
-facebook/watchman
 wireguard/wireguard
 znc/znc
 apache/zookeeper

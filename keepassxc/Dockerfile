@@ -3,14 +3,15 @@
 # docker run -d \
 #		-v /tmp/.X11-unix:/tmp/.X11-unix \
 #		-v /etc/machine-id:/etc/machine-id:ro \
-#		-v /usr/share/X11/xkb:/usr/share/X11/xkb/:ro
+#		-v /usr/share/X11/xkb:/usr/share/X11/xkb/:ro \
+#		-v $HOME/.config/keepassxc:/root/.config/keepassxc \
 #		-e DISPLAY=unix$DISPLAY \
 #		keepassxc
 #
 FROM alpine:latest
 LABEL maintainer "Christian Koep <christiankoep@gmail.com>"
 
-ENV KEEPASSXC_VERSION 2.2.0
+ENV KEEPASSXC_VERSION 2.2.1
 
 RUN buildDeps=' \
                 automake \
