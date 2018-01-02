@@ -24,6 +24,7 @@ get_latest() {
 		# get the latest tag
 		local resp=$(curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" "${URI}/repos/${repo}/tags")
 		local tag=$(echo $resp | jq -e --raw-output .[0].name)
+		tag=${tag#release-}
 	fi
 
 	if [[ "$name" == "null" ]] || [[ "$name" == "" ]]; then
@@ -38,6 +39,8 @@ get_latest() {
 		dir="golang-softhsm2"
 	elif [[ "$dir" == "bazel" ]]; then
 		dir="gitiles"
+	elif [[ "$dir" == "zookeeper" ]]; then
+		dir="zookeeper/3.5"
 	elif [[ "$dir" == "oauth2_proxy" ]]; then
 		dir="oauth2-proxy"
 	fi
@@ -47,9 +50,8 @@ get_latest() {
 	if [[ "$tag" =~ "$current" ]] || [[ "$name" =~ "$current" ]] || [[ "$current" =~ "$tag" ]] || [[ "$current" == "master" ]]; then
 		echo -e "\e[36m${dir}:\e[39m current ${current} | ${tag} | ${name}"
 	else
-		if [[ "$dir" != "zookeeper" ]]; then
-			bad_versions+=( "${dir}" )
-		fi
+		# add to the bad versions
+		bad_versions+=( "${dir}" )
 		echo -e "\e[31m${dir}:\e[39m current ${current} | ${tag} | ${name} | https://github.com/${repo}/releases"
 	fi
 }
@@ -72,6 +74,7 @@ ricochet-im/ricochet
 reverse-shell/routersploit
 tarsnap/tarsnap
 fcambus/telize
+hashicorp/terraform
 mitchellh/vagrant
 hashicorp/vault
 wireguard/wireguard
