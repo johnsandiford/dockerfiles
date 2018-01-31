@@ -9,8 +9,11 @@ RUN dpkg --add-architecture arm64 \
 	gnupg \
 	crossbuild-essential-arm64 \
 	crossbuild-essential-ppc64el \
+	gcc \
+	gcc-7-plugin-dev \
 	git \
 	kernel-package \
+	libelf-dev \
 	make \
 	libncurses5-dev \
 	libssl-dev \
@@ -22,6 +25,6 @@ WORKDIR $HOME
 
 ENV JOBS 4
 
-COPY install_kernel /usr/local/bin/install_kernel
+COPY build_kernel /usr/local/bin/build_kernel
 
 CMD [ "bash" ]

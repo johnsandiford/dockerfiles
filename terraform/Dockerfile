@@ -7,7 +7,7 @@ ENV GOPATH /go
 RUN	apk --no-cache add \
 	ca-certificates
 
-ENV TERRAFORM_VERSION v0.11.1
+ENV TERRAFORM_VERSION v0.11.2
 
 RUN buildDeps=' \
 		bash \
@@ -18,7 +18,6 @@ RUN buildDeps=' \
 		libc-dev \
 		libgcc \
 		make \
-		zip \
 	' \
 	set -x \
 	&& apk --no-cache add --repository https://dl-3.alpinelinux.org/alpine/edge/community $buildDeps \
@@ -26,10 +25,11 @@ RUN buildDeps=' \
 	&& git clone --depth 1 --branch ${TERRAFORM_VERSION} https://github.com/hashicorp/terraform /go/src/github.com/hashicorp/terraform \
 	&& cd /go/src/github.com/hashicorp/terraform \
 	&& XC_ARCH="amd64" XC_OS="linux" make bin \
-	&& mv pkg/linux_amd64/terraform /usr/bin/ \
+	&& mv bin/terraform /usr/bin/terraform \
 	&& apk del $buildDeps \
 	&& rm -rf /go \
 	&& echo "Build complete."
 
 
 ENTRYPOINT [ "terraform" ]
+CMD [ "--help" ]
