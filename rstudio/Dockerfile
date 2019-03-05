@@ -6,11 +6,11 @@
 #	-v $HOME/rscripts:/root/rscripts \
 #	--device /dev/dri \
 #	--name rstudio \
-#	jess/rsudio
+#	jess/rstudio
 #
 
 # Base docker image
-FROM debian:jessie
+FROM debian:jessie-slim
 LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 # Install Rstudio deps
@@ -49,7 +49,8 @@ RUN apt-get update && apt-get install -y \
 	&& /usr/sbin/update-locale LANG=en_US.UTF-8 \
 	&& rm -rf /var/lib/apt/lists/*
 
-ENV RSTUDIO_VERSION 1.1.442
+# https://www.rstudio.com/products/rstudio/download/#download
+ENV RSTUDIO_VERSION 1.1.463
 
 # Download the source
 RUN buildDeps=' \
