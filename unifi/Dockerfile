@@ -100,6 +100,18 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /tmp/unifi.deb \
 	&& echo "Build complete."
 
+ENV UNIFI_VERSION_VOIP "1.0.5-kxe7d9"
+
+# install unifi voip
+RUN apt-get update && apt-get install -y \
+		curl \
+		--no-install-recommends \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& curl -o /tmp/unifi.deb -L "http://dl.ubnt.com/unifi/${UNIFI_VERSION_VOIP}/unifi_sysvinit_all.deb" \
+	&& dpkg -i /tmp/unifi.deb \
+	&& rm -rf /tmp/unifi.deb \
+&& echo "Build complete."
+
 WORKDIR /config
 
 # 3478 - STUN
@@ -109,7 +121,10 @@ WORKDIR /config
 # 8880 - guest portal (http)
 # 6789 - throughput / mobile speedtest (tcp)
 # ref https://help.ubnt.com/hc/en-us/articles/218506997-UniFi-Ports-Used
-EXPOSE 3478/udp 8080 8081 8443 8843 8880 6789
+# VoIP Ctrl HTTP (Inform port): 9080
+# VoIP Ctrl HTTPS (UI): 9443
+# https://help.ubnt.com/hc/en-us/articles/217894708-UniFi-VoIP-Ports-Used
+EXPOSE 3478/udp 8080 8081 8443 8843 8880 6789 9080 9443
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
