@@ -102,11 +102,7 @@ RUN apt-get update && apt-get install -y \
 	&& echo "Build complete."
 
 # install unifi voip
-RUN apt-get update && apt-get install -y \
-		curl \
-		--no-install-recommends \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& curl -o /tmp/unifi-voip.deb -L "http://dl.ubnt.com/unifi/${UNIFI_VERSION_VOIP}/unifi_sysvinit_all.deb" \
+RUN curl -o /tmp/unifi-voip.deb -L "http://dl.ubnt.com/unifi/${UNIFI_VERSION_VOIP}/unifi_voip_sysvinit_all.deb" \
 	&& dpkg -i /tmp/unifi-voip.deb \
 	&& rm -rf /tmp/unifi-voip.deb \
 && echo "Build complete."
