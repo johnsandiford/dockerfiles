@@ -88,38 +88,24 @@ RUN apt-get update && apt-get install -y \
 
 # unifi version
 # From: https://www.ubnt.com/download/unifi/
-ENV UNIFI_VERSION "5.10.19"
-# ENV UNIFI_VERSION_VOIP "1.0.6-vfy6nm"
+ENV UNIFI_VERSION_VOIP "1.0.6-vfy6nm"
 
-# install unifi
+# install unifi voip
 RUN apt-get update && apt-get install -y \
 		curl \
 		--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& curl -o /tmp/unifi.deb -L "http://dl.ubnt.com/unifi/${UNIFI_VERSION}/unifi_sysvinit_all.deb" \
+	&& curl -o /tmp/unifi.deb -L "http://dl.ubnt.com/unifi-voip/${UNIFI_VERSION_VOIP}/unifi_voip_sysvinit_all.deb" \
 	&& dpkg -i /tmp/unifi.deb \
 	&& rm -rf /tmp/unifi.deb \
 	&& echo "Build complete."
 
-# install unifi voip
-# RUN curl -o /tmp/unifi-voip.deb -L "http://dl.ubnt.com/unifi/${UNIFI_VERSION_VOIP}/unifi_voip_sysvinit_all.deb" \
-# 	&& dpkg -i /tmp/unifi-voip.deb \
-# 	&& rm -rf /tmp/unifi-voip.deb \
-#        && echo "Build complete."
-
 WORKDIR /config
 
-# 3478 - STUN
-# 8080 - device inform (http)
-# 8443 - web management (https)
-# 8843 - guest portal (https)
-# 8880 - guest portal (http)
-# 6789 - throughput / mobile speedtest (tcp)
-# ref https://help.ubnt.com/hc/en-us/articles/218506997-UniFi-Ports-Used
 # VoIP Ctrl HTTP (Inform port): 9080
 # VoIP Ctrl HTTPS (UI): 9443
 # https://help.ubnt.com/hc/en-us/articles/217894708-UniFi-VoIP-Ports-Used
-EXPOSE 3478/udp 8080 8081 8443 8843 8880 6789
+EXPOSE 9080 9443
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
