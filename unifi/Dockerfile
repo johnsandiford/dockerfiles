@@ -93,6 +93,8 @@ ENV UNIFI_VERSION_VOIP "1.0.6-vfy6nm"
 # install unifi voip
 RUN apt-get update && apt-get install -y \
 		curl \
+		mongodb-10gen \
+		mongodb-server \
 		--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& curl -o /tmp/unifi.deb -L "http://dl.ubnt.com/unifi-voip/${UNIFI_VERSION_VOIP}/unifi_voip_sysvinit_all.deb" \
