@@ -89,6 +89,7 @@ RUN apt-get update && apt-get install -y \
 # unifi version
 # From: https://www.ubnt.com/download/unifi/
 ENV UNIFI_VERSION "5.10.19"
+ENV UNIFI_VERSION_VOIP "1.0.5-kxe7d9"
 
 # install unifi
 RUN apt-get update && apt-get install -y \
@@ -100,16 +101,14 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /tmp/unifi.deb \
 	&& echo "Build complete."
 
-ENV UNIFI_VERSION_VOIP "1.0.5-kxe7d9"
-
 # install unifi voip
 RUN apt-get update && apt-get install -y \
 		curl \
 		--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& curl -o /tmp/unifi.deb -L "http://dl.ubnt.com/unifi/${UNIFI_VERSION_VOIP}/unifi_sysvinit_all.deb" \
-	&& dpkg -i /tmp/unifi.deb \
-	&& rm -rf /tmp/unifi.deb \
+	&& curl -o /tmp/unifi-voip.deb -L "http://dl.ubnt.com/unifi/${UNIFI_VERSION_VOIP}/unifi_sysvinit_all.deb" \
+	&& dpkg -i /tmp/unifi-voip.deb \
+	&& rm -rf /tmp/unifi-voip.deb \
 && echo "Build complete."
 
 WORKDIR /config
