@@ -89,7 +89,7 @@ RUN apt-get update && apt-get install -y \
 # unifi version
 # From: https://www.ubnt.com/download/unifi/
 ENV UNIFI_VERSION "5.10.19"
-ENV UNIFI_VERSION_VOIP "1.0.5-kxe7d9"
+ENV UNIFI_VERSION_VOIP "1.0.6-vfy6nm"
 
 # install unifi
 RUN apt-get update && apt-get install -y \
